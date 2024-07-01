@@ -1,0 +1,30 @@
+{"namespace": "com.company.model",
+  "type": "record",
+  "name": "Customer",
+  "fields": [
+    {"name": "firstname", "type": "string"},
+    {"name": "lastname", "type": "string"},
+    {"name": "email", "type": "string"},
+    {"name": "phone", "type": "string"},
+    {"name": "address", "type":
+      {"type": "record",
+       "name": "AddressRecord",
+       "fields": [
+         {"name": "streetaddress", "type": "string"},
+         {"name": "city", "type": "string"},
+         {"name": "state", "type": "string"},
+         {"name": "zip", "type": "string"},
+          {"name": "address", "type":
+      {"type": "record",
+       "name": "AddressRecord1",
+       "fields": [
+         {"name": "streetaddress111", "type": "string"},
+         {"name": "city111", "type": "string"},
+         {"name": "state111", "type": "string"},
+         {"name": "zip111", "type": "string"}
+       ]}
+    }
+       ]}
+    }
+  ]
+}

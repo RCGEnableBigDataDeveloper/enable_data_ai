@@ -1,0 +1,421 @@
+<configuration>
+
+	<property>
+		<name>distribution.type</name>
+		<value>mapr</value>
+	</property>
+
+	<property>
+		<name>datalake.database.chunksize</name>
+		<value>1000000</value>
+	</property>
+
+	<property>
+		<name>datalake.database.fetchsize</name>
+		<value>1000000</value>
+	</property>
+
+	<property>
+		<name>datalake.tmp.dir</name>
+		<value>/tmp</value>
+	</property>
+
+	<property>
+		<name>datalake.web.log.dir</name>
+		<value>/tmp/out.log
+		</value>
+	</property>
+
+	<property>
+		<name>datalake.job.execution.class</name>
+		<value>com.rcggs.datalake.connect.EngineClient
+		</value>
+	</property>
+
+	<property>
+		<name>datalake.metadata.database.url</name>
+		<value>jdbc:mysql://localhost:3306/DATALAKE</value>
+	</property>
+
+	<property>
+		<name>datalake.metadata.database.driver</name>
+		<value>com.mysql.cj.jdbc.Driver</value>
+	</property>
+
+	<property>
+		<name>datalake.metadata.database.user</name>
+		<value>root</value>
+	</property>
+
+	<!-- <property> <name>datalake.metadata.database.password</name> <value></value> 
+		</property> -->
+	<property>
+		<name>datalake.metadata.database.password</name>
+		<value>Cdi6954c</value>
+	</property>
+
+	<property>
+		<name>datalake.engine.url</name>
+		<value>http://localhost/runnow/erer</value>
+	</property>
+
+	<!-- mapr -->
+	<!-- <property> <name>datalake.engine.url</name> <value>http://localhost:8080/sample/hello/run/name</value> 
+		</property> -->
+
+	<property>
+		<name>datalake.cluster.url</name>
+		<value>http://127.0.0.1:8088/ws/v1/cluster/metrics</value>
+	</property>
+
+	<property>
+		<name>datalake.cluster.logs.url</name>
+		<value>http://127.0.0.1:50070/logs/hadoop-hdfs-datanode-node1.rcggs.com.log
+		</value>
+	</property>
+
+	<property>
+		<name>datalake.frontend.callback.url</name>
+		<value>http://localhost:8180/ingest-engine-web/service/updateMetric
+		</value>
+	</property>
+
+	<property>
+		<name>datalake.ldap.host</name>
+		<value>ldap://192.168.1.165:389</value>
+	</property>
+
+
+	<property>
+		<name>datalake.ldap.base</name>
+		<value>,OU=developer,OU=schaumburg,DC=rcg,DC=com</value>
+	</property>
+
+	<drivers>
+		<driver>
+			<name>mysql</name>
+			<class>com.mysql.cj.jdbc.Driver</class>
+		</driver>
+	</drivers>
+
+	<transformations>
+		<transformation>
+			<name>toXML</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.xml.XmlTransformer</class>
+		</transformation>
+
+		<transformation>
+			<name>toJSON</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.json.JsonTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toCSV</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.csv.CSVTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toTSV</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.tsv.TSVTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toDelimited</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.xml.DelimitedTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toXLS</name>
+			<type>basic</type>
+			<class>com.rcggs.datalake.transform.xml.XlsTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toORC</name>
+			<type>hadoop</type>
+			<class>com.rcggs.datalake.transform.xml.ORCTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toSequenceFile</name>
+			<type>hadoop</type>
+			<class>com.rcggs.datalake.transform.xml.SequenceFileTransformer
+			</class>
+		</transformation>
+		<transformation>
+			<name>toRCFile</name>
+			<type>hadoop</type>
+			<class>com.rcggs.datalake.transform.xml.RCFileTransformer</class>
+		</transformation>
+		<transformation>
+			<name>toParquet</name>
+			<type>hadoop</type>
+			<class>com.rcggs.datalake.transform.xml.ParquetTransformer</class>
+		</transformation>
+		<transformation>
+			<name>UTCtoEST</name>
+			<type>custom</type>
+			<class>com.rcggs.datalake.transform.xml.UTCtoESTransformer</class>
+		</transformation>
+		<transformation>
+			<name>fromCopybook</name>
+			<type>custom</type>
+			<class>com.rcggs.datalake.transform.xml.UTCtoESTransformer</class>
+		</transformation>
+	</transformations>
+
+	<connections>
+
+
+		<connection>
+			<name>call center recordings</name>
+			<type>mp3</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/ai/media/audio</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+
+		<connection>
+			<name>scanned images gallery</name>
+			<type>img</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/ai/media/img</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+
+		<connection>
+			<name>mysql (172.16.10.2)</name>
+			<type>mysql</type>
+			<host>localhost</host>
+			<port>3306</port>
+			<path>datalake</path>
+			<user>root</user>
+			<pwd>II6ivGi2T3264CRnzKwXcw==</pwd>
+			<pwd>Cdi6954c</pwd>
+			<class>com.rcggs.datalake.connect.rdbms.SQLConnection</class>
+		</connection>
+
+		<connection>
+			<name>snowflake</name>
+			<type>mysql</type>
+			<host>localhost</host>
+			<port>3306</port>
+			<path>fastdatarule</path>
+			<user>root</user>
+			<pwd>II6ivGi2T3264CRnzKwXcw==</pwd>
+			<pwd>Cdi6954c</pwd>
+			<class>com.rcggs.datalake.connect.rdbms.SQLConnection</class>
+		</connection>
+
+		<connection>
+			<name>insurance documents</name>
+			<type>pdf</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/azure/demo/data/demo/</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+
+		<connection>
+			<name>sharepoint</name>
+			<type>sharepoint</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/ai/media/</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+		
+		<connection>
+			<name>google docs</name>
+			<type>sharepoint</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/ai/media/</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+		
+		<connection>
+			<name>azure blob storage</name>
+			<type>sharepoint</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/ai/media/</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+
+
+		<connection>
+			<name>os390-emulator</name>
+			<type>os390</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/data/pocdata/FlatFile</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+
+		<connection>
+			<name>scraping tools</name>
+			<type>crawler</type>
+			<host></host>
+			<port></port>
+			<path></path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.twitter.TwitterConnection</class>
+			<props>
+				<prop>
+					<name>oauth.consumerKey</name>
+					<value></value>
+				</prop>
+				<prop>
+					<name>oauth.consumerSecret</name>
+					<value></value>
+				</prop>
+				<prop>
+					<name>oauth.accessToken</name>
+					<value></value>
+				</prop>
+				<prop>
+					<name>oauth.accessTokenSecret</name>
+					<value></value>
+				</prop>
+			</props>
+		</connection>
+		<connection>
+			<name>openweather-rest-service</name>
+			<type>rest</type>
+			<host>192.168.1.5</host>
+			<port>22</port>
+			<path>http://api.openweathermap.org/data/2.5/forecast/daily?q=London&amp;mode=xml&amp;units=metric&amp;cnt=7&amp;appid=c3362eb145ac7c1eeb12c22fd1cc4a65
+			</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.http.RestServiceConnection
+			</class>
+		</connection>
+		<connection>
+			<name>http-endpoint (archive.apache.org)</name>
+			<type>http</type>
+			<host>https://archive.apache.org/dist/tomcat/</host>
+			<port></port>
+			<path></path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.http.HttpConnection</class>
+		</connection>
+		
+		<connection>
+			<name>bsa documents</name>
+			<type>bsa</type>
+			<host>localhost</host>
+			<port></port>
+			<path>/Users/ericperler/work/src/python/azure/ci_cd/data/bsa</path>
+			<user></user>
+			<pwd></pwd>
+			<class>com.rcggs.datalake.connect.fs.LocalFileSystemConnection
+			</class>
+		</connection>
+		
+
+
+	</connections>
+	<services>
+	</services>
+	<schema-readers>
+		<schema-reader>
+			<name>XSD Schema Reader</name>
+			<type>com.rcggs.datalake.parser.XSDSchemaParser</type>
+			<schema-paths>
+				<schema-path>
+					<type>gsdn</type>
+					<path>/tmp/Schemas/item/2.0/</path>
+				</schema-path>
+			</schema-paths>
+		</schema-reader>
+		<schema-reader>
+			<name>JSON
+				Schema Reader
+			</name>
+			<type>com.rcggs.datalake.parser.SimpleHeaderRowSchemaParser</type>
+		</schema-reader>
+		<schema-reader>
+			<name>XML Schema Reader</name>
+			<type>com.rcggs.datalake.parser.SimpleHeaderRowSchemaParser</type>
+		</schema-reader>
+		<schema-reader>
+			<name>Header Row Schema Reader</name>
+			<type>com.rcggs.datalake.parser.SimpleHeaderRowSchemaParser</type>
+		</schema-reader>
+		<schema-reader>
+			<name>EDI X12 Schema Reader</name>
+			<type>com.rcggs.datalake.parser.GenericEdiFlatFileSchemaParser</type>
+			<schema-paths>
+				<schema-path>
+					<type>abcmck</type>
+					<path>/Users/ericperler/Documents/home/src/vbox/data/pocdata/schema/ABCMCKDelimFileStructure.TXT
+					</path>
+				</schema-path>
+				<schema-path>
+					<type>tuh</type>
+					<path>/Users/ericperler/Documents/home/src/vbox/data/pocdata/schema/TUHFileStructure.TXT
+					</path>
+				</schema-path>
+				<schema-path>
+					<type>wrf</type>
+					<path>/Users/ericperler/Documents/home/src/vbox/data/pocdata/schema/WRFFileStructure.TXT
+					</path>
+				</schema-path>
+				<schema-path>
+					<type>mck</type>
+					<path>/Users/ericperler/Documents/home/src/vbox/data/pocdata/schema/MCKDelimFileStructure.TXT
+					</path>
+					<validation-policy>com.rcggs.engine.validation.IncludeAddedLogMissingPolicy
+					</validation-policy>
+				</schema-path>
+			</schema-paths>
+		</schema-reader>
+	</schema-readers>
+	<plugins>
+		<plugin>
+			<name>dq-process-1</name>
+			<type>data-qaulity</type>
+			<class>com.rcggs.datalake.transform.CommonsValidatorDataQualityProcessor
+			</class>
+			<resources>
+				<resource></resource>
+			</resources>
+		</plugin>
+		<plugin>
+			<name>rules-process-1</name>
+			<type>rules</type>
+			<class>com.rcggs.drools.DroolsDecisionTable
+			</class>
+			<resources>
+				<resource>/ruleset.xls</resource>
+			</resources>
+		</plugin>
+	</plugins>
+
+</configuration>
